@@ -1,7 +1,33 @@
 <!doctype html>
 <html lang="es-mx">
+
 <head>
 	<meta name="generator" content="Hugo 0.155.3"><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <script src="https://www.datadoghq-browser-agent.com/us1/v6/datadog-rum.js" type="text/javascript"
+    crossorigin></script>
+
+  <script>
+    window.DD_RUM && window.DD_RUM.init({
+      clientToken: 'pub2c9f5d31e0918bc021e08cf3d1644fcb',
+      applicationId: 'a14b3d85-d19f-41fe-b43b-59601255a575',
+      site: 'datadoghq.com',
+
+      service: 'hugo-catalogo',
+      env: 'dev-hugo',
+      version: '1.0.0',
+
+      sessionSampleRate: 100,
+      sessionReplaySampleRate: 20,
+
+      trackUserInteractions: true,
+      trackResources: true,
+      trackLongTasks: true,
+      trackBfcacheViews: true,
+
+      defaultPrivacyLevel: 'mask-user-input',
+    });
+  </script>
+
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Mi primer sitio Hugo | Mi primer sitio Hugo</title>
@@ -10,228 +36,466 @@
   
 
   <style>
-    :root{
-      --bg:#0b1220;
-      --panel:#121b2f;
-      --panel2:#0f1730;
-      --text:#eaf0ff;
-      --muted:#a9b4d0;
-      --brand:#6ee7ff;
-      --brand2:#a78bfa;
-      --ok:#34d399;
-      --warn:#fbbf24;
-      --bad:#fb7185;
-      --ring: 0 0 0 3px rgba(110,231,255,.25);
+    :root {
+      --bg: #0b1220;
+      --panel: #121b2f;
+      --panel2: #0f1730;
+      --text: #eaf0ff;
+      --muted: #a9b4d0;
+      --brand: #6ee7ff;
+      --brand2: #a78bfa;
+      --ok: #34d399;
+      --warn: #fbbf24;
+      --bad: #fb7185;
+      --ring: 0 0 0 3px rgba(110, 231, 255, .25);
       --radius: 18px;
     }
-    *{box-sizing:border-box}
-    body{
-      margin:0;
-      background: radial-gradient(1200px 700px at 10% 10%, rgba(167,139,250,.18), transparent 60%),
-                  radial-gradient(900px 600px at 90% 20%, rgba(110,231,255,.16), transparent 55%),
-                  var(--bg);
-      color:var(--text);
+
+    * {
+      box-sizing: border-box
+    }
+
+    body {
+      margin: 0;
+      background: radial-gradient(1200px 700px at 10% 10%, rgba(167, 139, 250, .18), transparent 60%),
+        radial-gradient(900px 600px at 90% 20%, rgba(110, 231, 255, .16), transparent 55%),
+        var(--bg);
+      color: var(--text);
       font: 14px/1.4 system-ui, -apple-system, Segoe UI, Roboto, Arial;
     }
-    a{color:inherit;text-decoration:none}
-    .wrap{max-width:1200px;margin:0 auto;padding:18px}
-    .topbar{
-      position:sticky;top:0;z-index:20;
+
+    a {
+      color: inherit;
+      text-decoration: none
+    }
+
+    .wrap {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 18px
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
       backdrop-filter: blur(10px);
-      background: rgba(11,18,32,.65);
-      border-bottom: 1px solid rgba(255,255,255,.06);
-    }
-    .topbar .row{
-      display:flex;align-items:center;gap:12px;
-      padding:14px 18px;
-    }
-    .brand{
-      display:flex;align-items:center;gap:10px;
-      font-weight:800;letter-spacing:.2px;
-    }
-    .logo{
-      width:34px;height:34px;border-radius:12px;
-      background: linear-gradient(135deg,var(--brand),var(--brand2));
-      box-shadow: 0 14px 30px rgba(110,231,255,.18);
-    }
-    .nav{
-      display:flex;gap:10px;margin-left:10px;flex-wrap:wrap;
-    }
-    .pill{
-      padding:8px 11px;border-radius:999px;
-      background: rgba(255,255,255,.06);
-      border:1px solid rgba(255,255,255,.08);
-      color:var(--muted);
-      cursor:pointer;
-      transition:.15s transform,.15s background,.15s border;
-    }
-    .pill:hover{transform:translateY(-1px);background:rgba(255,255,255,.085)}
-    .pill.active{color:var(--text);border-color: rgba(110,231,255,.35); box-shadow: var(--ring)}
-    .spacer{flex:1}
-
-    .search{
-      display:flex;align-items:center;gap:8px;
-      padding:8px 10px;border-radius:999px;
-      background: rgba(255,255,255,.06);
-      border:1px solid rgba(255,255,255,.10);
-      min-width:260px;
-    }
-    .search input{
-      all:unset;flex:1;color:var(--text);
-    }
-    .btn{
-      border:0;cursor:pointer;
-      padding:10px 12px;border-radius:12px;
-      background: rgba(255,255,255,.07);
-      border:1px solid rgba(255,255,255,.10);
-      color:var(--text);
-      transition:.15s transform,.15s background;
-      display:inline-flex;align-items:center;gap:8px;
-    }
-    .btn:hover{transform:translateY(-1px);background:rgba(255,255,255,.09)}
-    .btn.primary{
-      background: linear-gradient(135deg, rgba(110,231,255,.20), rgba(167,139,250,.20));
-      border-color: rgba(110,231,255,.25);
-    }
-    .badge{
-      min-width:22px;height:22px;border-radius:999px;
-      background: rgba(110,231,255,.20);
-      border:1px solid rgba(110,231,255,.25);
-      display:grid;place-items:center;
-      font-weight:700;font-size:12px;
+      background: rgba(11, 18, 32, .65);
+      border-bottom: 1px solid rgba(255, 255, 255, .06);
     }
 
-    .layout{
-      display:grid;
+    .topbar .row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 18px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      letter-spacing: .2px;
+    }
+
+    .logo {
+      width: 34px;
+      height: 34px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--brand), var(--brand2));
+      box-shadow: 0 14px 30px rgba(110, 231, 255, .18);
+    }
+
+    .nav {
+      display: flex;
+      gap: 10px;
+      margin-left: 10px;
+      flex-wrap: wrap;
+    }
+
+    .pill {
+      padding: 8px 11px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, .06);
+      border: 1px solid rgba(255, 255, 255, .08);
+      color: var(--muted);
+      cursor: pointer;
+      transition: .15s transform, .15s background, .15s border;
+    }
+
+    .pill:hover {
+      transform: translateY(-1px);
+      background: rgba(255, 255, 255, .085)
+    }
+
+    .pill.active {
+      color: var(--text);
+      border-color: rgba(110, 231, 255, .35);
+      box-shadow: var(--ring)
+    }
+
+    .spacer {
+      flex: 1
+    }
+
+    .search {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 10px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, .06);
+      border: 1px solid rgba(255, 255, 255, .10);
+      min-width: 260px;
+    }
+
+    .search input {
+      all: unset;
+      flex: 1;
+      color: var(--text);
+    }
+
+    .btn {
+      border: 0;
+      cursor: pointer;
+      padding: 10px 12px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, .07);
+      border: 1px solid rgba(255, 255, 255, .10);
+      color: var(--text);
+      transition: .15s transform, .15s background;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+      background: rgba(255, 255, 255, .09)
+    }
+
+    .btn.primary {
+      background: linear-gradient(135deg, rgba(110, 231, 255, .20), rgba(167, 139, 250, .20));
+      border-color: rgba(110, 231, 255, .25);
+    }
+
+    .badge {
+      min-width: 22px;
+      height: 22px;
+      border-radius: 999px;
+      background: rgba(110, 231, 255, .20);
+      border: 1px solid rgba(110, 231, 255, .25);
+      display: grid;
+      place-items: center;
+      font-weight: 700;
+      font-size: 12px;
+    }
+
+    .layout {
+      display: grid;
       grid-template-columns: 280px 1fr;
-      gap:16px;
-      align-items:start;
-      margin-top:16px;
+      gap: 16px;
+      align-items: start;
+      margin-top: 16px;
     }
-    @media(max-width: 980px){
-      .layout{grid-template-columns: 1fr}
-      .search{min-width:0; width: 100%;}
-      .nav{display:none}
-    }
-    .card{
-      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
-      border:1px solid rgba(255,255,255,.10);
-      border-radius: var(--radius);
-      overflow:hidden;
-      box-shadow: 0 18px 50px rgba(0,0,0,.25);
-    }
-    .card h3{margin:0;font-size:14px;letter-spacing:.2px}
-    .side{padding:14px}
-    .muted{color:var(--muted)}
-    .section{padding:12px;border-radius:14px;background: rgba(0,0,0,.12);border:1px solid rgba(255,255,255,.07)}
-    .section + .section{margin-top:10px}
-    .field{display:flex;flex-direction:column;gap:6px;margin-top:10px}
-    .field label{color:var(--muted);font-size:12px}
-    .field select, .field input[type="range"]{
-      width:100%;
-      background: rgba(255,255,255,.06);
-      border:1px solid rgba(255,255,255,.10);
-      color:var(--text);
-      padding:10px 10px;border-radius:12px;
-      outline:none;
-    }
-    .row2{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
-    .grid{
-      padding:14px;
-      display:grid;
-      grid-template-columns: repeat(3, minmax(0,1fr));
-      gap:12px;
-    }
-    @media(max-width: 1100px){ .grid{grid-template-columns: repeat(2, minmax(0,1fr));} }
-    @media(max-width: 640px){ .grid{grid-template-columns: 1fr;} }
 
-    .product{
+    @media(max-width: 980px) {
+      .layout {
+        grid-template-columns: 1fr
+      }
+
+      .search {
+        min-width: 0;
+        width: 100%;
+      }
+
+      .nav {
+        display: none
+      }
+    }
+
+    .card {
+      background: linear-gradient(180deg, rgba(255, 255, 255, .06), rgba(255, 255, 255, .03));
+      border: 1px solid rgba(255, 255, 255, .10);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: 0 18px 50px rgba(0, 0, 0, .25);
+    }
+
+    .card h3 {
+      margin: 0;
+      font-size: 14px;
+      letter-spacing: .2px
+    }
+
+    .side {
+      padding: 14px
+    }
+
+    .muted {
+      color: var(--muted)
+    }
+
+    .section {
+      padding: 12px;
+      border-radius: 14px;
+      background: rgba(0, 0, 0, .12);
+      border: 1px solid rgba(255, 255, 255, .07)
+    }
+
+    .section+.section {
+      margin-top: 10px
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-top: 10px
+    }
+
+    .field label {
+      color: var(--muted);
+      font-size: 12px
+    }
+
+    .field select,
+    .field input[type="range"] {
+      width: 100%;
+      background: rgba(255, 255, 255, .06);
+      border: 1px solid rgba(255, 255, 255, .10);
+      color: var(--text);
+      padding: 10px 10px;
+      border-radius: 12px;
+      outline: none;
+    }
+
+    .row2 {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap
+    }
+
+    .grid {
+      padding: 14px;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    @media(max-width: 1100px) {
+      .grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media(max-width: 640px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .product {
       border-radius: 16px;
-      background: rgba(255,255,255,.05);
-      border:1px solid rgba(255,255,255,.10);
-      overflow:hidden;
-      transition:.15s transform,.15s border,.15s background;
-      display:flex;flex-direction:column;
+      background: rgba(255, 255, 255, .05);
+      border: 1px solid rgba(255, 255, 255, .10);
+      overflow: hidden;
+      transition: .15s transform, .15s border, .15s background;
+      display: flex;
+      flex-direction: column;
       min-height: 250px;
     }
-    .product:hover{transform:translateY(-2px);border-color: rgba(110,231,255,.25); background: rgba(255,255,255,.06)}
-    .thumb{
-      height:130px;
-      background: linear-gradient(135deg, rgba(110,231,255,.22), rgba(167,139,250,.18));
-      position:relative;
+
+    .product:hover {
+      transform: translateY(-2px);
+      border-color: rgba(110, 231, 255, .25);
+      background: rgba(255, 255, 255, .06)
     }
-    .tag{
-      position:absolute;top:10px;left:10px;
-      padding:6px 10px;border-radius:999px;
-      background: rgba(0,0,0,.35);
-      border:1px solid rgba(255,255,255,.12);
-      color:var(--text);
-      font-weight:700;font-size:12px;
+
+    .thumb {
+      height: 130px;
+      background: linear-gradient(135deg, rgba(110, 231, 255, .22), rgba(167, 139, 250, .18));
+      position: relative;
     }
-    .body{padding:12px;display:flex;flex-direction:column;gap:8px;flex:1}
-    .title{font-weight:800}
-    .price{font-weight:800}
-    .price small{color:var(--muted);font-weight:600}
-    .actions{display:flex;gap:8px;margin-top:auto;flex-wrap:wrap}
-    .btn.small{padding:9px 10px;border-radius:12px;font-weight:700}
-    .btn.ok{border-color: rgba(52,211,153,.35); background: rgba(52,211,153,.12)}
-    .btn.warn{border-color: rgba(251,191,36,.35); background: rgba(251,191,36,.12)}
-    .btn.bad{border-color: rgba(251,113,133,.35); background: rgba(251,113,133,.12)}
-    .toolbar{
-      padding:14px;
-      display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap;
-      border-bottom: 1px solid rgba(255,255,255,.08);
+
+    .tag {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(0, 0, 0, .35);
+      border: 1px solid rgba(255, 255, 255, .12);
+      color: var(--text);
+      font-weight: 700;
+      font-size: 12px;
     }
-    .pager{display:flex;gap:8px;align-items:center}
-    .toast{
+
+    .body {
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      flex: 1
+    }
+
+    .title {
+      font-weight: 800
+    }
+
+    .price {
+      font-weight: 800
+    }
+
+    .price small {
+      color: var(--muted);
+      font-weight: 600
+    }
+
+    .actions {
+      display: flex;
+      gap: 8px;
+      margin-top: auto;
+      flex-wrap: wrap
+    }
+
+    .btn.small {
+      padding: 9px 10px;
+      border-radius: 12px;
+      font-weight: 700
+    }
+
+    .btn.ok {
+      border-color: rgba(52, 211, 153, .35);
+      background: rgba(52, 211, 153, .12)
+    }
+
+    .btn.warn {
+      border-color: rgba(251, 191, 36, .35);
+      background: rgba(251, 191, 36, .12)
+    }
+
+    .btn.bad {
+      border-color: rgba(251, 113, 133, .35);
+      background: rgba(251, 113, 133, .12)
+    }
+
+    .toolbar {
+      padding: 14px;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      border-bottom: 1px solid rgba(255, 255, 255, .08);
+    }
+
+    .pager {
+      display: flex;
+      gap: 8px;
+      align-items: center
+    }
+
+    .toast {
       position: fixed;
-      right: 16px; bottom: 16px;
-      background: rgba(18,27,47,.92);
-      border:1px solid rgba(255,255,255,.10);
+      right: 16px;
+      bottom: 16px;
+      background: rgba(18, 27, 47, .92);
+      border: 1px solid rgba(255, 255, 255, .10);
       border-radius: 16px;
       padding: 12px 14px;
-      box-shadow: 0 20px 60px rgba(0,0,0,.4);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, .4);
       max-width: 340px;
-      display:none;
+      display: none;
       z-index: 50;
     }
-    .toast.show{display:block}
-    .drawer{
-      position: fixed; top: 0; right: 0; height: 100vh; width: 380px;
-      background: rgba(15,23,48,.92);
-      border-left: 1px solid rgba(255,255,255,.10);
+
+    .toast.show {
+      display: block
+    }
+
+    .drawer {
+      position: fixed;
+      top: 0;
+      right: 0;
+      height: 100vh;
+      width: 380px;
+      background: rgba(15, 23, 48, .92);
+      border-left: 1px solid rgba(255, 255, 255, .10);
       backdrop-filter: blur(12px);
       transform: translateX(100%);
       transition: .2s transform;
       z-index: 60;
-      display:flex;flex-direction:column;
+      display: flex;
+      flex-direction: column;
     }
-    .drawer.open{transform: translateX(0)}
-    .drawer header{
-      padding:14px 14px;
-      display:flex;align-items:center;justify-content:space-between;
-      border-bottom:1px solid rgba(255,255,255,.08);
+
+    .drawer.open {
+      transform: translateX(0)
     }
-    .cartItems{padding:14px;display:flex;flex-direction:column;gap:10px;overflow:auto}
-    .cartItem{
-      padding:10px;border-radius:14px;
-      border:1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.05);
-      display:flex;justify-content:space-between;gap:10px;align-items:center;
+
+    .drawer header {
+      padding: 14px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(255, 255, 255, .08);
     }
-    .cartFooter{
-      padding:14px;border-top:1px solid rgba(255,255,255,.08);
-      display:flex;flex-direction:column;gap:10px;
+
+    .cartItems {
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      overflow: auto
     }
-    .kpi{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
-    .kpi .box{
-      flex:1;min-width: 120px;
-      padding:10px;border-radius:14px;
-      background: rgba(0,0,0,.12);
-      border:1px solid rgba(255,255,255,.07)
+
+    .cartItem {
+      padding: 10px;
+      border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, .10);
+      background: rgba(255, 255, 255, .05);
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: center;
     }
-    .box .n{font-size:18px;font-weight:900}
-    .box .l{color:var(--muted);font-size:12px}
+
+    .cartFooter {
+      padding: 14px;
+      border-top: 1px solid rgba(255, 255, 255, .08);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .kpi {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 10px
+    }
+
+    .kpi .box {
+      flex: 1;
+      min-width: 120px;
+      padding: 10px;
+      border-radius: 14px;
+      background: rgba(0, 0, 0, .12);
+      border: 1px solid rgba(255, 255, 255, .07)
+    }
+
+    .box .n {
+      font-size: 18px;
+      font-weight: 900
+    }
+
+    .box .l {
+      color: var(--muted);
+      font-size: 12px
+    }
   </style>
 </head>
 
@@ -240,7 +504,7 @@
     <div class="row">
       <a class="brand" href="/catalogo/">
         <span class="logo"></span>
-        <span>Fernando Shop</span>
+        <span>Datadog Testing Shop</span>
       </a>
 
       <nav class="nav" aria-label="Navegación">
@@ -299,8 +563,14 @@
           </div>
 
           <div class="kpi">
-            <div class="box"><div class="n" id="kpiShown">0</div><div class="l">Mostrados</div></div>
-            <div class="box"><div class="n" id="kpiCart">0</div><div class="l">En carrito</div></div>
+            <div class="box">
+              <div class="n" id="kpiShown">0</div>
+              <div class="l">Mostrados</div>
+            </div>
+            <div class="box">
+              <div class="n" id="kpiCart">0</div>
+              <div class="l">En carrito</div>
+            </div>
           </div>
 
           <div class="row2" style="margin-top:12px">
@@ -350,7 +620,7 @@
     <div id="cartItems" class="cartItems"></div>
     <div class="cartFooter">
       <div class="row2" style="justify-content:space-between">
-        <span class="muted">Total</span>
+        <span class="muted">Total a pagar</span>
         <strong id="cartTotal">$0</strong>
       </div>
       <button id="btnCheckout" class="btn primary" type="button">Pagar</button>
@@ -361,18 +631,18 @@
   <script>
     
     const products = [
-      { id:"p1", name:"JBL Mini Boom", cat:"audio", price:1499, rating:4.6, tag:"Audio" },
-      { id:"p2", name:"Teclado Mecánico Neon", cat:"gaming", price:2199, rating:4.8, tag:"Gaming" },
-      { id:"p3", name:"Cafetera Olla Pro", cat:"cafe", price:899, rating:4.3, tag:"Café" },
-      { id:"p4", name:"Taza Térmica Steel", cat:"cafe", price:399, rating:4.1, tag:"Café" },
-      { id:"p5", name:"Lámpara Minimal Glow", cat:"hogar", price:799, rating:4.4, tag:"Hogar" },
-      { id:"p6", name:"Mouse UltraLite", cat:"gaming", price:999, rating:4.7, tag:"Gaming" },
-      { id:"p7", name:"Barra de Sonido Slim", cat:"audio", price:2499, rating:4.2, tag:"Audio" },
-      { id:"p8", name:"Organizador Desk Pro", cat:"hogar", price:599, rating:4.0, tag:"Hogar" },
-      { id:"p9", name:"Audífonos Studio Air", cat:"audio", price:1999, rating:4.5, tag:"Audio" },
-      { id:"p10", name:"Espumador de Leche", cat:"cafe", price:499, rating:4.2, tag:"Café" },
-      { id:"p11", name:"Silla Gamer Chill", cat:"gaming", price:3999, rating:4.6, tag:"Gaming" },
-      { id:"p12", name:"Difusor Aroma Zen", cat:"hogar", price:699, rating:4.3, tag:"Hogar" },
+      { id: "p1", name: "JBL Party Boom", cat: "audio", price: 1499, rating: 4.6, tag: "Audio" },
+      { id: "p2", name: "Teclado Mecánico", cat: "gaming", price: 2199, rating: 4.8, tag: "Gaming" },
+      { id: "p3", name: "Cafetera Olla Pro", cat: "cafe", price: 899, rating: 4.3, tag: "Café" },
+      { id: "p4", name: "Taza Térmica Steel", cat: "cafe", price: 399, rating: 4.1, tag: "Café" },
+      { id: "p5", name: "Lámpara Minimal Glow", cat: "hogar", price: 799, rating: 4.4, tag: "Hogar" },
+      { id: "p6", name: "Mouse UltraLite", cat: "gaming", price: 999, rating: 4.7, tag: "Gaming" },
+      { id: "p7", name: "Barra de Sonido Slim", cat: "audio", price: 2499, rating: 4.2, tag: "Audio" },
+      { id: "p8", name: "Organizador Desk Pro", cat: "hogar", price: 599, rating: 4.0, tag: "Hogar" },
+      { id: "p9", name: "Audífonos Studio Air", cat: "audio", price: 1999, rating: 4.5, tag: "Audio" },
+      { id: "p10", name: "Espumador de Leche", cat: "cafe", price: 499, rating: 4.2, tag: "Café" },
+      { id: "p11", name: "Silla Gamer Chill", cat: "gaming", price: 3999, rating: 4.6, tag: "Gaming" },
+      { id: "p12", name: "Difusor Aroma Zen", cat: "hogar", price: 699, rating: 4.3, tag: "Hogar" },
     ];
 
     
@@ -389,7 +659,7 @@
     
     const $ = (id) => document.getElementById(id);
     const money = (n) => "$" + n.toLocaleString("es-MX");
-    function toast(msg){
+    function toast(msg) {
       const el = $("toast");
       el.textContent = msg;
       el.classList.add("show");
@@ -397,39 +667,39 @@
     }
 
     
-    function rumAction(name, ctx){
-      try{
+    function rumAction(name, ctx) {
+      try {
         if (window.DD_RUM && typeof window.DD_RUM.addAction === "function") {
           window.DD_RUM.addAction(name, ctx || {});
         }
-      } catch(e) {}
+      } catch (e) { }
     }
 
-    function applyFilters(list){
+    function applyFilters(list) {
       let out = [...list];
 
-      if (state.q.trim()){
+      if (state.q.trim()) {
         const q = state.q.toLowerCase();
         out = out.filter(p => p.name.toLowerCase().includes(q));
       }
-      if (state.category !== "all"){
+      if (state.category !== "all") {
         out = out.filter(p => p.cat === state.category);
       }
       out = out.filter(p => p.price <= state.priceMax);
 
-      if (state.sort === "price_asc") out.sort((a,b)=>a.price-b.price);
-      if (state.sort === "price_desc") out.sort((a,b)=>b.price-a.price);
-      if (state.sort === "rating") out.sort((a,b)=>b.rating-a.rating);
+      if (state.sort === "price_asc") out.sort((a, b) => a.price - b.price);
+      if (state.sort === "price_desc") out.sort((a, b) => b.price - a.price);
+      if (state.sort === "rating") out.sort((a, b) => b.rating - a.rating);
 
       return out;
     }
 
-    function render(){
+    function render() {
       const filtered = applyFilters(products);
       const totalPages = Math.max(1, Math.ceil(filtered.length / state.perPage));
       if (state.page > totalPages) state.page = totalPages;
 
-      const start = (state.page-1)*state.perPage;
+      const start = (state.page - 1) * state.perPage;
       const pageItems = filtered.slice(start, start + state.perPage);
 
       $("grid").innerHTML = pageItems.map(p => `
@@ -460,32 +730,32 @@
       $("next").disabled = state.page >= totalPages;
     }
 
-    function totalCartQty(){
+    function totalCartQty() {
       let n = 0;
       for (const qty of state.cart.values()) n += qty;
       return n;
     }
-    function cartTotal(){
+    function cartTotal() {
       let total = 0;
-      for (const [id, qty] of state.cart.entries()){
+      for (const [id, qty] of state.cart.entries()) {
         const p = products.find(x => x.id === id);
         if (p) total += p.price * qty;
       }
       return total;
     }
 
-    function openCart(){
+    function openCart() {
       $("drawer").classList.add("open");
-      $("drawer").setAttribute("aria-hidden","false");
+      $("drawer").setAttribute("aria-hidden", "false");
       renderCart();
       rumAction("open_cart");
     }
-    function closeCart(){
+    function closeCart() {
       $("drawer").classList.remove("open");
-      $("drawer").setAttribute("aria-hidden","true");
+      $("drawer").setAttribute("aria-hidden", "true");
       rumAction("close_cart");
     }
-    function renderCart(){
+    function renderCart() {
       const items = [...state.cart.entries()].map(([id, qty]) => {
         const p = products.find(x => x.id === id);
         if (!p) return "";
@@ -512,9 +782,9 @@
 
     
     
-    document.querySelectorAll("[data-nav]").forEach(btn=>{
+    document.querySelectorAll("[data-nav]").forEach(btn => {
       btn.addEventListener("click", () => {
-        document.querySelectorAll("[data-nav]").forEach(b=>b.classList.remove("active"));
+        document.querySelectorAll("[data-nav]").forEach(b => b.classList.remove("active"));
         btn.classList.add("active");
         toast(`Navegaste a: ${btn.dataset.nav}`);
         
@@ -524,7 +794,7 @@
     });
 
     
-    $("q").addEventListener("input", (e)=>{
+    $("q").addEventListener("input", (e) => {
       state.q = e.target.value;
       state.page = 1;
       render();
@@ -532,62 +802,62 @@
     });
 
     
-    $("category").addEventListener("change", (e)=>{ state.category = e.target.value; rumAction("filter_category", { value: state.category }); });
-    $("sort").addEventListener("change", (e)=>{ state.sort = e.target.value; rumAction("sort_change", { value: state.sort }); });
-    $("priceMax").addEventListener("input", (e)=>{
+    $("category").addEventListener("change", (e) => { state.category = e.target.value; rumAction("filter_category", { value: state.category }); });
+    $("sort").addEventListener("change", (e) => { state.sort = e.target.value; rumAction("sort_change", { value: state.sort }); });
+    $("priceMax").addEventListener("input", (e) => {
       state.priceMax = Number(e.target.value);
       $("priceMaxLbl").textContent = money(state.priceMax);
       rumAction("price_slider", { max: state.priceMax });
     });
 
-    $("btnApply").addEventListener("click", ()=>{
+    $("btnApply").addEventListener("click", () => {
       state.page = 1;
       render();
       toast("Filtros aplicados");
       rumAction("apply_filters", { category: state.category, sort: state.sort, priceMax: state.priceMax });
     });
 
-    $("btnReset").addEventListener("click", ()=>{
-      state.q=""; $("q").value="";
-      state.category="all"; $("category").value="all";
-      state.sort="relevance"; $("sort").value="relevance";
-      state.priceMax=2500; $("priceMax").value="2500"; $("priceMaxLbl").textContent = money(2500);
-      state.page=1;
+    $("btnReset").addEventListener("click", () => {
+      state.q = ""; $("q").value = "";
+      state.category = "all"; $("category").value = "all";
+      state.sort = "relevance"; $("sort").value = "relevance";
+      state.priceMax = 2500; $("priceMax").value = "2500"; $("priceMaxLbl").textContent = money(2500);
+      state.page = 1;
       render();
       toast("Reset ✅");
       rumAction("reset_filters");
     });
 
     
-    $("prev").addEventListener("click", ()=>{ state.page--; render(); rumAction("page_prev", { page: state.page }); });
-    $("next").addEventListener("click", ()=>{ state.page++; render(); rumAction("page_next", { page: state.page }); });
+    $("prev").addEventListener("click", () => { state.page--; render(); rumAction("page_prev", { page: state.page }); });
+    $("next").addEventListener("click", () => { state.page++; render(); rumAction("page_next", { page: state.page }); });
 
     
-    $("grid").addEventListener("click", (e)=>{
+    $("grid").addEventListener("click", (e) => {
       const btn = e.target.closest("button[data-act]");
       if (!btn) return;
       const card = e.target.closest(".product");
       const id = card?.dataset.id;
-      const p = products.find(x=>x.id===id);
+      const p = products.find(x => x.id === id);
       if (!p) return;
 
       const act = btn.dataset.act;
 
-      if (act === "add"){
-        state.cart.set(id, (state.cart.get(id)||0)+1);
+      if (act === "add") {
+        state.cart.set(id, (state.cart.get(id) || 0) + 1);
         render();
         toast(`Agregado: ${p.name}`);
         rumAction("add_to_cart", { productId: id, name: p.name, price: p.price, category: p.cat });
       }
 
-      if (act === "details"){
+      if (act === "details") {
         
         toast(`Detalles: ${p.name}`);
-        history.pushState({productId:id}, "", `?product=${encodeURIComponent(id)}`);
+        history.pushState({ productId: id }, "", `?product=${encodeURIComponent(id)}`);
         rumAction("view_details", { productId: id, name: p.name });
       }
 
-      if (act === "wishlist"){
+      if (act === "wishlist") {
         toast(`Wishlist: ${p.name}`);
         rumAction("add_to_wishlist", { productId: id, name: p.name });
       }
@@ -597,42 +867,42 @@
     $("btnCart").addEventListener("click", openCart);
     $("btnCloseCart").addEventListener("click", closeCart);
 
-    $("cartItems").addEventListener("click", (e)=>{
+    $("cartItems").addEventListener("click", (e) => {
       const b = e.target.closest("button[data-cart]");
       if (!b) return;
       const id = b.dataset.id;
       const mode = b.dataset.cart;
-      const qty = state.cart.get(id)||0;
+      const qty = state.cart.get(id) || 0;
 
-      if (mode === "inc") state.cart.set(id, qty+1);
-      if (mode === "dec") (qty<=1) ? state.cart.delete(id) : state.cart.set(id, qty-1);
+      if (mode === "inc") state.cart.set(id, qty + 1);
+      if (mode === "dec") (qty <= 1) ? state.cart.delete(id) : state.cart.set(id, qty - 1);
       if (mode === "rm") state.cart.delete(id);
 
       renderCart();
       render();
-      rumAction("cart_update", { productId: id, mode, qty: state.cart.get(id)||0 });
+      rumAction("cart_update", { productId: id, mode, qty: state.cart.get(id) || 0 });
     });
 
-    $("btnClear").addEventListener("click", ()=>{
+    $("btnClear").addEventListener("click", () => {
       state.cart.clear();
       renderCart(); render();
       toast("Carrito vacío");
       rumAction("cart_clear");
     });
 
-    $("btnCheckout").addEventListener("click", ()=>{
+    $("btnCheckout").addEventListener("click", () => {
       toast("Checkout (fake) 🧾");
       rumAction("checkout_click", { total: cartTotal(), items: totalCartQty() });
       openCart(); 
     });
 
-    $("btnProfile").addEventListener("click", ()=>{
+    $("btnProfile").addEventListener("click", () => {
       toast("Perfil (fake)");
       rumAction("open_profile");
     });
 
     
-    $("btnSlow").addEventListener("click", async ()=>{
+    $("btnSlow").addEventListener("click", async () => {
       rumAction("simulate_latency_start");
       toast("Simulando latencia...");
       await new Promise(r => setTimeout(r, 1600));
@@ -640,23 +910,23 @@
       rumAction("simulate_latency_done", { ms: 1600 });
     });
 
-    $("btnErr").addEventListener("click", ()=>{
+    $("btnErr").addEventListener("click", () => {
       rumAction("throw_error_click");
       
       throw new Error("💥 Error simulado para RUM (JS exception)");
     });
 
-    $("btnFetch").addEventListener("click", async ()=>{
+    $("btnFetch").addEventListener("click", async () => {
       rumAction("fake_fetch_click");
       
       const ok = Math.random() > 0.35;
       toast("Haciendo request fake...");
       await new Promise(r => setTimeout(r, 600));
 
-      if (!ok){
+      if (!ok) {
         toast("Request falló (fake)");
         
-        Promise.reject(new Error("Fake network error")).catch(()=>{});
+        Promise.reject(new Error("Fake network error")).catch(() => { });
         rumAction("fake_fetch_fail");
         return;
       }
@@ -669,4 +939,5 @@
     render();
   </script>
 </body>
+
 </html>
