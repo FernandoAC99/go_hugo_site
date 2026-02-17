@@ -504,7 +504,7 @@
     <div class="row">
       <a class="brand" href="/catalogo/">
         <span class="logo"></span>
-        <span>Datadog Testing Shop</span>
+        <span>Datadog Shop</span>
       </a>
 
       <nav class="nav" aria-label="Navegación">
@@ -914,6 +914,7 @@
       rumAction("throw_error_click");
       
       throw new Error("💥 Error simulado para RUM (JS exception)");
+      console.log("Error de algun tipo")
     });
 
     $("btnFetch").addEventListener("click", async () => {
