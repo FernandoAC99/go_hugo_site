@@ -917,6 +917,7 @@
       rumAction("throw_error_click");
       // Esto debe generar un error JS visible (y RUM lo debería capturar si está activo)
       throw new Error("💥 Error simulado para RUM (JS exception)");
+      console.log("Error de algun tipo")
     });
 
     $("btnFetch").addEventListener("click", async () => {
